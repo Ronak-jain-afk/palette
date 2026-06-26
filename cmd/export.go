@@ -19,9 +19,9 @@ var exportCmd = &cobra.Command{
 	Use:   "export",
 	Short: "Export a palette to a file or clipboard",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		mood, _ := cmd.Flags().GetString("mood")
-		count, _ := cmd.Flags().GetInt("count")
-		scheme, _ := cmd.Flags().GetString("scheme")
+		mood := getStringFlag(cmd, "mood", cfg.Defaults.Mood)
+		count := getIntFlag(cmd, "count", cfg.Defaults.Count)
+		scheme := getStringFlag(cmd, "scheme", cfg.Defaults.Scheme)
 
 		p := color.GenerateFromMood(mood, count, scheme)
 		output, err := export.Export(p, exportFormat, true)
@@ -57,5 +57,4 @@ func init() {
 	exportCmd.Flags().String("mood", "dark", "mood preset")
 	exportCmd.Flags().Int("count", 5, "number of colors")
 	exportCmd.Flags().String("scheme", "analogous", "harmony scheme")
-
 }

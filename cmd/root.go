@@ -4,10 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Ronak-jain-afk/palette/internal/config"
 	"github.com/spf13/cobra"
 )
 
-var noColor bool
+var (
+	noColor bool
+	cfg     *config.Config
+)
 
 var rootCmd = &cobra.Command{
 	Use:   "palette",
@@ -18,6 +22,13 @@ lock colors you like, and export to CSS, JSON, YAML, or plain hex.`,
 }
 
 func Execute() {
+	cobra.OnInitialize(func() {
+		var err error
+		cfg, err = config.Load()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "warning: %v\n", err)
+		}
+	})
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
@@ -30,4 +41,5 @@ func init() {
 	rootCmd.AddCommand(generateCmd)
 	rootCmd.AddCommand(exportCmd)
 	rootCmd.AddCommand(interactiveCmd)
+	rootCmd.AddCommand(configureCmd)
 }
