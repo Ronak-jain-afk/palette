@@ -14,7 +14,7 @@ type Renderer struct {
 	NoColor           bool
 }
 
-func NewRenderer(noColor, verbose bool) *Renderer {
+func NewRenderer(noColor bool) *Renderer {
 	r := &Renderer{}
 	if noColor {
 		r.NoColor = true

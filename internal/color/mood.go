@@ -8,7 +8,6 @@ import (
 )
 
 type Mood struct {
-	Name       string
 	Saturation [2]float64
 	Lightness  [2]float64
 	HueRange   [][2]float64

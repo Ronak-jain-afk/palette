@@ -7,10 +7,7 @@ import (
 	"github.com/Ronak-jain-afk/palette/internal/color"
 )
 
-const (
-	blockWidth  = 12
-	blockHeight = 3
-)
+const blockWidth = 12
 
 func RenderSwatches(p color.Palette, r *Renderer) string {
 	if r.NoColor {
