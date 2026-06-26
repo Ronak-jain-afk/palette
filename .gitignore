@@ -1,4 +1,5 @@
 palette
+dist/
 *.tar.gz
 *.exe
 .DS_Store

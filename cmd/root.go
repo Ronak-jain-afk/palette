@@ -11,14 +11,16 @@ import (
 var (
 	noColor bool
 	cfg     *config.Config
+	Version = "dev"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "palette",
-	Short: "A mood-driven color palette generator for the terminal",
+	Use:     "palette",
+	Short:   "A mood-driven color palette generator for the terminal",
 	Long: `Palette generates professional, mood-driven color palettes
 directly in your terminal. Use it to quickly explore color schemes,
 lock colors you like, and export to CSS, JSON, YAML, or plain hex.`,
+	Version: Version,
 }
 
 func Execute() {
