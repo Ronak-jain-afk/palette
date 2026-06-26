@@ -58,14 +58,6 @@ func initConfig() {
 	viper.ReadInConfig()
 }
 
-var generateCmd = &cobra.Command{
-	Use:   "generate",
-	Short: "Generate a color palette",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("not yet implemented")
-	},
-}
-
 var interactiveCmd = &cobra.Command{
 	Use:   "interactive",
 	Short: "Launch interactive palette editor",
