@@ -1,0 +1,4 @@
+palette
+*.tar.gz
+*.exe
+.DS_Store
