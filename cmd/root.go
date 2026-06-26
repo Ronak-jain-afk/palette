@@ -28,21 +28,13 @@ func init() {
 	rootCmd.PersistentFlags().BoolVar(&noColor, "no-color", false, "disable color output")
 
 	rootCmd.AddCommand(generateCmd)
-	rootCmd.AddCommand(interactiveCmd)
 	rootCmd.AddCommand(exportCmd)
+	rootCmd.AddCommand(interactiveCmd)
 }
 
 var interactiveCmd = &cobra.Command{
 	Use:   "interactive",
 	Short: "Launch interactive palette editor",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("not yet implemented")
-	},
-}
-
-var exportCmd = &cobra.Command{
-	Use:   "export",
-	Short: "Export the current palette",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("not yet implemented")
 	},
