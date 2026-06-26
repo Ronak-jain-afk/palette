@@ -114,3 +114,26 @@ func HexToRGB(hex string) (uint8, uint8, uint8, error) {
 func RGBToHex(r, g, b uint8) string {
 	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
 }
+
+func linearize(v float64) float64 {
+	if v <= 0.04045 {
+		return v / 12.92
+	}
+	return math.Pow((v+0.055)/1.055, 2.4)
+}
+
+func relativeLuminance(r, g, b uint8) float64 {
+	rl := linearize(float64(r) / 255.0)
+	gl := linearize(float64(g) / 255.0)
+	bl := linearize(float64(b) / 255.0)
+	return 0.2126*rl + 0.7152*gl + 0.0722*bl
+}
+
+func ContrastRatio(r1, g1, b1, r2, g2, b2 uint8) float64 {
+	l1 := relativeLuminance(r1, g1, b1)
+	l2 := relativeLuminance(r2, g2, b2)
+	if l1 < l2 {
+		l1, l2 = l2, l1
+	}
+	return (l1 + 0.05) / (l2 + 0.05)
+}

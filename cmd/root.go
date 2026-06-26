@@ -31,11 +31,3 @@ func init() {
 	rootCmd.AddCommand(exportCmd)
 	rootCmd.AddCommand(interactiveCmd)
 }
-
-var interactiveCmd = &cobra.Command{
-	Use:   "interactive",
-	Short: "Launch interactive palette editor",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("not yet implemented")
-	},
-}
