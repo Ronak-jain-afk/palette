@@ -57,48 +57,13 @@ func (r *Renderer) Reset() string {
 var xtermColors [256][3]uint8
 
 func init() {
-	buildXtermTable()
-}
-
-func buildXtermTable() {
-	for i := 0; i < 16; i++ {
-		var r, g, b uint8
-		switch i {
-		case 0:
-			r, g, b = 0, 0, 0
-		case 1:
-			r, g, b = 128, 0, 0
-		case 2:
-			r, g, b = 0, 128, 0
-		case 3:
-			r, g, b = 128, 128, 0
-		case 4:
-			r, g, b = 0, 0, 128
-		case 5:
-			r, g, b = 128, 0, 128
-		case 6:
-			r, g, b = 0, 128, 128
-		case 7:
-			r, g, b = 192, 192, 192
-		case 8:
-			r, g, b = 128, 128, 128
-		case 9:
-			r, g, b = 255, 0, 0
-		case 10:
-			r, g, b = 0, 255, 0
-		case 11:
-			r, g, b = 255, 255, 0
-		case 12:
-			r, g, b = 0, 0, 255
-		case 13:
-			r, g, b = 255, 0, 255
-		case 14:
-			r, g, b = 0, 255, 255
-		case 15:
-			r, g, b = 255, 255, 255
-		}
-		xtermColors[i] = [3]uint8{r, g, b}
+	base16 := [...][3]uint8{
+		{0, 0, 0}, {128, 0, 0}, {0, 128, 0}, {128, 128, 0},
+		{0, 0, 128}, {128, 0, 128}, {0, 128, 128}, {192, 192, 192},
+		{128, 128, 128}, {255, 0, 0}, {0, 255, 0}, {255, 255, 0},
+		{0, 0, 255}, {255, 0, 255}, {0, 255, 255}, {255, 255, 255},
 	}
+	copy(xtermColors[:], base16[:])
 	for i := 16; i < 232; i++ {
 		j := i - 16
 		r := uint8(j/36) * 255 / 5

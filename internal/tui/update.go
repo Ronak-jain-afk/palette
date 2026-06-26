@@ -17,12 +17,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
-	switch m.mode {
-	case "export":
-		return m.handleExportKey(msg)
-	default:
-		return m.handleViewKey(msg)
-	}
+	return m.handleViewKey(msg)
 }
 
 func (m model) handleViewKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
@@ -74,21 +69,10 @@ func (m model) handleViewKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "s":
 		m.cycleScheme(1)
 
-	case "e":
-		m.mode = "export"
-
 	case "h", "?":
 		m.showHelp = !m.showHelp
 	}
 
-	return m, nil
-}
-
-func (m model) handleExportKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
-	switch msg.String() {
-	case "q", "ctrl+c", "e", "esc":
-		m.mode = "view"
-	}
 	return m, nil
 }
 
@@ -151,14 +135,7 @@ func (m *model) shiftHue(delta float64) {
 	}
 	c := m.palette.Colors[m.focusIndex]
 	h, s, l := colorspace.RGBToHSL(c.R, c.G, c.B)
-	h += delta
-	for h < 0 {
-		h += 360
-	}
-	for h >= 360 {
-		h -= 360
-	}
-	r, g, b := colorspace.HSLToRGB(h, s, l)
+	r, g, b := colorspace.HSLToRGB(color.NormalizeHue(h+delta), s, l)
 	m.palette.Colors[m.focusIndex] = color.Color{R: r, G: g, B: b}
 }
 

@@ -11,14 +11,13 @@ import (
 type model struct {
 	palette    color.Palette
 	focusIndex int
-	mode       string // "view" or "export"
 	showHelp   bool
 	renderer   *display.Renderer
 
-	moodKeys  []string
+	moodKeys   []string
 	schemeKeys []string
-	moodIdx   int
-	schemeIdx int
+	moodIdx    int
+	schemeIdx  int
 }
 
 func InitialModel(noColor bool) model {
@@ -30,26 +29,23 @@ func InitialModel(noColor bool) model {
 
 	schemes := []string{"analogous", "complementary", "triadic", "tetradic", "monochromatic"}
 
+	moodIdx := 0
+	for i, k := range keys {
+		if k == "dark" {
+			moodIdx = i
+			break
+		}
+	}
 	m := model{
 		palette:    color.GenerateFromMood("dark", 5, "analogous"),
 		focusIndex: 0,
-		mode:       "view",
 		renderer:   display.NewRenderer(noColor),
 		moodKeys:   keys,
 		schemeKeys: schemes,
-		moodIdx:    indexOf("dark", keys),
+		moodIdx:    moodIdx,
 		schemeIdx:  0,
 	}
 	return m
-}
-
-func indexOf(s string, xs []string) int {
-	for i, x := range xs {
-		if x == s {
-			return i
-		}
-	}
-	return 0
 }
 
 func (m model) Init() tea.Cmd {

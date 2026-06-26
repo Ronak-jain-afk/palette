@@ -15,11 +15,8 @@ type jsonPalette struct {
 }
 
 func ToJSON(p color.Palette, includeMetadata bool) (string, error) {
+	hexes := hexSlice(p)
 	if !includeMetadata {
-		hexes := make([]string, len(p.Colors))
-		for i, c := range p.Colors {
-			hexes[i] = c.HexString()
-		}
 		b, err := json.MarshalIndent(hexes, "", "  ")
 		if err != nil {
 			return "", err
@@ -31,10 +28,7 @@ func ToJSON(p color.Palette, includeMetadata bool) (string, error) {
 		Name:   p.Name,
 		Mood:   p.Mood,
 		Scheme: p.Scheme,
-	}
-	jp.Colors = make([]string, len(p.Colors))
-	for i, c := range p.Colors {
-		jp.Colors[i] = c.HexString()
+		Colors: hexes,
 	}
 
 	b, err := json.MarshalIndent(jp, "", "  ")

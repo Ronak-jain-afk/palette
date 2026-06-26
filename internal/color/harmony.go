@@ -4,8 +4,7 @@ import (
 	"github.com/Ronak-jain-afk/palette/pkg/colorspace"
 )
 
-func normalizeHue(h float64) float64 {
-	h = h
+func NormalizeHue(h float64) float64 {
 	for h < 0 {
 		h += 360
 	}
@@ -31,7 +30,7 @@ func Analogous(base Color, count int) []Color {
 	colors := make([]Color, count)
 	for i := range colors {
 		offset := step*float64(i) - 15.0
-		rh := normalizeHue(h + offset)
+		rh := NormalizeHue(h + offset)
 		r, g, b := colorspace.HSLToRGB(rh, clamp(s, 0, 1), clamp(l, 0, 1))
 		colors[i] = Color{r, g, b}
 	}
@@ -40,7 +39,7 @@ func Analogous(base Color, count int) []Color {
 
 func Complementary(base Color) []Color {
 	h, s, l := colorspace.RGBToHSL(base.R, base.G, base.B)
-	rh := normalizeHue(h + 180)
+	rh := NormalizeHue(h + 180)
 	r, g, b := colorspace.HSLToRGB(rh, clamp(s, 0, 1), clamp(l, 0, 1))
 	return []Color{base, Color{r, g, b}}
 }
@@ -54,7 +53,7 @@ func SplitComplementary(base Color, count int) []Color {
 	colors[0] = base
 	angleStep := 180.0 / float64(count-1)
 	for i := 1; i < count; i++ {
-		rh := normalizeHue(h + 150.0 + angleStep*float64(i-1))
+		rh := NormalizeHue(h + 150.0 + angleStep*float64(i-1))
 		r, g, b := colorspace.HSLToRGB(rh, clamp(s, 0, 1), clamp(l, 0, 1))
 		colors[i] = Color{r, g, b}
 	}
@@ -65,7 +64,7 @@ func Triadic(base Color) []Color {
 	h, s, l := colorspace.RGBToHSL(base.R, base.G, base.B)
 	colors := make([]Color, 3)
 	for i := range colors {
-		rh := normalizeHue(h + float64(i)*120.0)
+		rh := NormalizeHue(h + float64(i)*120.0)
 		r, g, b := colorspace.HSLToRGB(rh, clamp(s, 0, 1), clamp(l, 0, 1))
 		colors[i] = Color{r, g, b}
 	}
@@ -76,7 +75,7 @@ func Tetradic(base Color) []Color {
 	h, s, l := colorspace.RGBToHSL(base.R, base.G, base.B)
 	colors := make([]Color, 4)
 	for i := range colors {
-		rh := normalizeHue(h + float64(i)*90.0)
+		rh := NormalizeHue(h + float64(i)*90.0)
 		r, g, b := colorspace.HSLToRGB(rh, clamp(s, 0, 1), clamp(l, 0, 1))
 		colors[i] = Color{r, g, b}
 	}

@@ -101,9 +101,9 @@ func TestNormalizeHue(t *testing.T) {
 		{180, 180},
 	}
 	for _, tt := range tests {
-		got := normalizeHue(tt.input)
+		got := NormalizeHue(tt.input)
 		if got != tt.want {
-			t.Errorf("normalizeHue(%f) = %f; want %f", tt.input, got, tt.want)
+			t.Errorf("NormalizeHue(%f) = %f; want %f", tt.input, got, tt.want)
 		}
 	}
 }

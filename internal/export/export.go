@@ -6,6 +6,14 @@ import (
 	"github.com/Ronak-jain-afk/palette/internal/color"
 )
 
+func hexSlice(p color.Palette) []string {
+	hexes := make([]string, len(p.Colors))
+	for i, c := range p.Colors {
+		hexes[i] = c.HexString()
+	}
+	return hexes
+}
+
 func Export(p color.Palette, format string, includeMetadata bool) (string, error) {
 	switch format {
 	case "json":

@@ -13,11 +13,8 @@ type yamlPalette struct {
 }
 
 func ToYAML(p color.Palette, includeMetadata bool) (string, error) {
+	hexes := hexSlice(p)
 	if !includeMetadata {
-		hexes := make([]string, len(p.Colors))
-		for i, c := range p.Colors {
-			hexes[i] = c.HexString()
-		}
 		b, err := yaml.Marshal(hexes)
 		if err != nil {
 			return "", err
@@ -29,10 +26,7 @@ func ToYAML(p color.Palette, includeMetadata bool) (string, error) {
 		Name:   p.Name,
 		Mood:   p.Mood,
 		Scheme: p.Scheme,
-	}
-	yp.Colors = make([]string, len(p.Colors))
-	for i, c := range p.Colors {
-		yp.Colors[i] = c.HexString()
+		Colors: hexes,
 	}
 
 	b, err := yaml.Marshal(yp)

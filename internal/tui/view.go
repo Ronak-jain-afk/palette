@@ -100,7 +100,7 @@ func (m model) renderInfo() string {
 func (m model) renderFooter() string {
 	keys := []string{
 		"r Regenerate", "Space Lock", "m Mood",
-		"s Scheme", "e Export", "? Help", "q Quit",
+		"s Scheme", 	"? Help", "q Quit",
 	}
 	return strings.Join(keys, "  ")
 }

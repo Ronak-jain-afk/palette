@@ -57,7 +57,4 @@ Keys:
 	},
 }
 
-func init() {
-	configureCmd.Flags().Bool("global", false, "apply to all users (unused)")
-	configureCmd.Flags().MarkHidden("global")
-}
+func init() {}

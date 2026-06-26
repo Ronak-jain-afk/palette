@@ -7,6 +7,8 @@ import (
 	"github.com/Ronak-jain-afk/palette/pkg/colorspace"
 )
 
+
+
 type Mood struct {
 	Saturation [2]float64
 	Lightness  [2]float64
@@ -62,11 +64,10 @@ func GenerateFromMood(mood string, count int, scheme string) Palette {
 	locked := make([]bool, len(colors))
 
 	return Palette{
-		Name:        mood + " " + scheme + " palette",
-		Colors:      colors,
-		Mood:        mood,
-		Scheme:      scheme,
-		GeneratedAt: time.Now(),
-		Locked:      locked,
+		Name:   mood + " " + scheme + " palette",
+		Colors: colors,
+		Mood:   mood,
+		Scheme: scheme,
+		Locked: locked,
 	}
 }
